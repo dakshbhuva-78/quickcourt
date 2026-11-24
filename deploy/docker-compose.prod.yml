@@ -1,0 +1,62 @@
+# Production-style stack for ONE cloud VM:  Caddy (HTTPS) -> QuickCourt app -> MySQL
+# Usage on the server (inside ~/quickcourt):
+#     cp .env.example .env          # edit passwords, set DOMAIN, set SEED_DATA=false for real use
+#     docker compose --env-file .env -f deploy/docker-compose.prod.yml up -d --build
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: quickcourt
+      MYSQL_USER: ${DB_USERNAME:-quickcourt}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?set DB_ROOT_PASSWORD in .env}
+      TZ: Asia/Kolkata
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    # no "ports:" -> the database is NOT reachable from the internet
+
+  app:
+    build: ..
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: "jdbc:mysql://db:3306/quickcourt?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+      DB_USERNAME: ${DB_USERNAME:-quickcourt}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SEED_DATA: ${SEED_DATA:-false}
+    expose:
+      - "8080"                          # only Caddy can reach the app
+    volumes:
+      - app_logs:/app/logs
+      - app_exports:/app/exports
+      - app_reports:/app/reports
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env (e.g. quickcourt.duckdns.org)}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data                # stores the Let's Encrypt certificates
+
+volumes:
+  db_data:
+  app_logs:
+  app_exports:
+  app_reports:
+  caddy_data:

@@ -1,0 +1,396 @@
+/* QuickCourt - design tokens
+   Deep Green + Navy + White + Light Gray (from the project brief) */
+:root {
+  --qc-green: #0f6b3c;
+  --qc-green-bright: #2fa866;
+  --qc-green-pale: #ddf0e5;
+  --qc-navy: #0b1f3a;
+  --qc-gray: #f2f5f7;
+  --qc-line: #e1e6ea;
+  --qc-muted: #5b6b7b;
+  --qc-amber: #e8a33d;
+  --bs-primary: #0f6b3c;
+  --bs-body-font-family:
+    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bs-body-color: #16263b;
+}
+body {
+  background: #fff;
+  font-family: var(--bs-body-font-family);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+.navbar-brand,
+.display-font {
+  font-family: "Sora", "Inter", system-ui, sans-serif;
+  color: var(--qc-navy);
+  letter-spacing: -0.01em;
+}
+a {
+  color: var(--qc-green);
+}
+:focus-visible {
+  outline: 3px solid var(--qc-green-bright);
+  outline-offset: 2px;
+}
+
+/* ---------- navbar ---------- */
+.navbar-qc {
+  background: var(--qc-navy);
+}
+.navbar-qc .navbar-brand {
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.navbar-qc .nav-link {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 500;
+}
+.navbar-qc .nav-link:hover,
+.navbar-qc .nav-link.active {
+  color: #fff;
+}
+.navbar-qc .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.navbar-qc .navbar-toggler-icon {
+  filter: invert(1);
+}
+.brand-logo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: inline-block;
+}
+
+/* ---------- buttons ---------- */
+.btn-qc {
+  background: var(--qc-green);
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+}
+.btn-qc:hover,
+.btn-qc:focus {
+  background: #0b5a32;
+  color: #fff;
+}
+.btn-outline-qc {
+  border: 1.5px solid var(--qc-green);
+  color: var(--qc-green);
+  font-weight: 600;
+  background: transparent;
+}
+.btn-outline-qc:hover {
+  background: var(--qc-green);
+  color: #fff;
+}
+.btn-navy {
+  background: var(--qc-navy);
+  color: #fff;
+  font-weight: 600;
+  border: 0;
+}
+.btn-navy:hover {
+  background: #12305a;
+  color: #fff;
+}
+
+/* ---------- hero (the memorable element: court markings) ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: linear-gradient(
+    120deg,
+    var(--qc-navy) 0%,
+    #0d3a47 55%,
+    var(--qc-green) 100%
+  );
+  padding: 4.5rem 0 5rem;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520' viewBox='0 0 520 520' fill='none' stroke='white' stroke-width='3'><rect x='60' y='40' width='400' height='440'/><line x1='60' y1='260' x2='460' y2='260' stroke-width='6'/><line x1='60' y1='150' x2='460' y2='150'/><line x1='60' y1='370' x2='460' y2='370'/><line x1='260' y1='150' x2='260' y2='370'/><line x1='100' y1='40' x2='100' y2='480'/><line x1='420' y1='40' x2='420' y2='480'/></svg>");
+  background-size: 520px;
+  background-position: right -80px top -20px;
+  background-repeat: no-repeat;
+}
+.hero h1,
+.hero p {
+  color: #fff;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.08;
+  max-width: 14ch;
+}
+.hero .lead {
+  max-width: 48ch;
+  color: rgba(255, 255, 255, 0.85);
+}
+.search-panel {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  margin-top: 2rem;
+}
+.search-panel label {
+  color: var(--qc-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ---------- sport tiles ---------- */
+.sport-tile {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  padding: 1.1rem 0.5rem;
+  border-radius: 14px;
+  background: var(--qc-gray);
+  color: var(--qc-navy);
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.sport-tile:hover {
+  border-color: var(--qc-green);
+  background: var(--qc-green-pale);
+  color: var(--qc-navy);
+}
+.sport-tile .emoji {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- venue cards ---------- */
+.venue-card {
+  border: 1px solid var(--qc-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.venue-img {
+  height: 150px;
+  display: grid;
+  place-items: center;
+  font-size: 3.2rem;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+}
+.venue-img-lg {
+  height: 260px;
+  font-size: 5rem;
+  border-radius: 14px;
+}
+.badge-sport {
+  background: var(--qc-green-pale);
+  color: var(--qc-green);
+  font-weight: 600;
+}
+.price {
+  font-weight: 700;
+  color: var(--qc-navy);
+  font-size: 1.15rem;
+}
+
+/* ---------- slots & courts ---------- */
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 0.6rem;
+}
+.slot-btn {
+  border: 1.5px solid var(--qc-green);
+  background: #fff;
+  color: var(--qc-green);
+  border-radius: 10px;
+  padding: 0.55rem 0.3rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.slot-btn:hover:not(:disabled) {
+  background: var(--qc-green-pale);
+}
+.slot-btn.selected {
+  background: var(--qc-green);
+  color: #fff;
+}
+.slot-btn:disabled {
+  border-color: var(--qc-line);
+  background: var(--qc-gray);
+  color: #9aa7b3;
+  cursor: not-allowed;
+}
+.slot-btn small {
+  display: block;
+  font-weight: 500;
+  font-size: 0.7rem;
+}
+.court-option {
+  border: 1.5px solid var(--qc-line);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  background: #fff;
+}
+.court-option.selected {
+  border-color: var(--qc-green);
+  background: var(--qc-green-pale);
+}
+.summary-card {
+  position: sticky;
+  top: 84px;
+  border: 1px solid var(--qc-line);
+  border-radius: 14px;
+  background: var(--qc-gray);
+}
+
+/* ---------- status badges ---------- */
+.status {
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.78rem;
+  display: inline-block;
+}
+.status-CONFIRMED,
+.status-APPROVED,
+.status-SUCCESS {
+  background: var(--qc-green-pale);
+  color: var(--qc-green);
+}
+.status-PENDING {
+  background: #fdf0d8;
+  color: #8a5a00;
+}
+.status-CANCELLED,
+.status-REJECTED,
+.status-FAILED {
+  background: #fbe0e0;
+  color: #9b2020;
+}
+.status-COMPLETED {
+  background: #e0e8f3;
+  color: var(--qc-navy);
+}
+
+/* ---------- dashboards ---------- */
+.kpi {
+  border: 1px solid var(--qc-line);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+  background: #fff;
+  height: 100%;
+}
+.kpi .value {
+  font-family: "Sora", sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--qc-navy);
+}
+.kpi .label {
+  color: var(--qc-muted);
+  font-size: 0.85rem;
+}
+.chart-card {
+  border: 1px solid var(--qc-line);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  background: #fff;
+  height: 100%;
+}
+.chart-card h6 {
+  font-weight: 700;
+  color: var(--qc-navy);
+}
+.nav-pills .nav-link {
+  color: var(--qc-navy);
+  font-weight: 600;
+}
+.nav-pills .nav-link.active {
+  background: var(--qc-navy);
+  color: #fff;
+}
+.log-box {
+  background: var(--qc-navy);
+  color: #bfe9cf;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  border-radius: 10px;
+  padding: 0.8rem;
+  max-height: 220px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+/* ---------- misc ---------- */
+.page-header {
+  background: var(--qc-gray);
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--qc-line);
+}
+.auth-card {
+  max-width: 460px;
+  margin: 3rem auto;
+  border: 1px solid var(--qc-line);
+  border-radius: 16px;
+  padding: 2rem;
+}
+.section-title {
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+.step-dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--qc-green);
+  color: #fff;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+}
+.footer-qc {
+  background: var(--qc-navy);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+.footer-qc strong {
+  color: #fff;
+}
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--qc-muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+@media (max-width: 576px) {
+  .hero {
+    padding: 3rem 0;
+  }
+  .venue-img-lg {
+    height: 180px;
+  }
+}

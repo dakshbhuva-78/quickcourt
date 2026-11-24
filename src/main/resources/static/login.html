@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login | QuickCourt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body data-page="login">
+  <div id="navbar"></div>
+  <main class="container">
+    <div class="auth-card">
+      <h2 class="mb-1">Welcome back</h2>
+      <p class="text-muted">Log in to book courts or manage your venues.</p>
+      <div id="formError" class="alert alert-danger d-none" role="alert"></div>
+      <form id="loginForm" novalidate>
+        <div class="mb-3"><label class="form-label" for="email">Email</label>
+          <input type="email" class="form-control" id="email" autocomplete="username" required></div>
+        <div class="mb-3"><label class="form-label" for="password">Password</label>
+          <input type="password" class="form-control" id="password" autocomplete="current-password" required></div>
+        <button class="btn btn-qc w-100" type="submit" id="loginBtn">Log in</button>
+      </form>
+      <p class="mt-3 mb-0 text-center">New here? <a href="register.html">Create an account</a></p>
+      <hr>
+      <p class="small text-muted mb-1"><strong>Demo accounts</strong> (sample data):</p>
+      <ul class="small text-muted mb-0">
+        <li>Player: player1@quickcourt.com / Player@123</li>
+        <li>Owner: owner1@quickcourt.com / Owner@123</li>
+        <li>Admin: admin@quickcourt.com / Admin@123</li>
+      </ul>
+    </div>
+  </main>
+  <div id="footer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

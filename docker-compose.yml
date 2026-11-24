@@ -1,0 +1,47 @@
+# Starts MySQL + the QuickCourt app with one command:
+#     docker compose up --build
+# Passwords come from the .env file (copy .env.example to .env first). Never commit .env.
+services:
+  db:
+    image: mysql:8.0
+    container_name: quickcourt-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: quickcourt
+      MYSQL_USER: ${DB_USERNAME:-quickcourt}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Please set DB_PASSWORD in the .env file}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Please set DB_ROOT_PASSWORD in the .env file}
+      TZ: Asia/Kolkata
+    volumes:
+      - db_data:/var/lib/mysql          # data survives container restarts
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  app:
+    build: .
+    container_name: quickcourt-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy      # wait until MySQL is ready
+    environment:
+      DB_URL: "jdbc:mysql://db:3306/quickcourt?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+      DB_USERNAME: ${DB_USERNAME:-quickcourt}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SEED_DATA: ${SEED_DATA:-true}
+    ports:
+      - "8080:8080"
+    volumes:
+      - app_logs:/app/logs
+      - app_exports:/app/exports
+      - app_reports:/app/reports
+
+volumes:
+  db_data:
+  app_logs:
+  app_exports:
+  app_reports:

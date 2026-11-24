@@ -1,0 +1,5 @@
+# Copy this file to application-local.properties (same folder) and put YOUR MySQL password.
+# That file is listed in .gitignore, so it will never be pushed to GitHub.
+# Run with:  mvn spring-boot:run -Dspring-boot.run.profiles=local
+spring.datasource.username=root
+spring.datasource.password=YOUR_MYSQL_PASSWORD
